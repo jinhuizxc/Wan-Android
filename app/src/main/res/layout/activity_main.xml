@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.hsf1002.sky.wanandroid.MainActivity"
+    tools:context="com.hsf1002.sky.wanandroid.ui.main.activity.MainActivity"
     tools:openDrawer="start">
 
     <android.support.design.widget.CoordinatorLayout

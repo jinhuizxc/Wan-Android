@@ -2,7 +2,6 @@ package com.hsf1002.sky.wanandroid.di.module;
 
 import android.app.Activity;
 
-import com.hsf1002.sky.wanandroid.di.component.ActivityComponent;
 import com.hsf1002.sky.wanandroid.di.scope.ActivityScope;
 
 import dagger.Module;

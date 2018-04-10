@@ -1,5 +1,7 @@
 package com.hsf1002.sky.wanandroid.di.component;
 
+import com.hsf1002.sky.wanandroid.app.GeeksApp;
+import com.hsf1002.sky.wanandroid.core.DataManager;
 import com.hsf1002.sky.wanandroid.di.module.AppModule;
 import com.hsf1002.sky.wanandroid.di.module.HttpModule;
 
@@ -14,4 +16,10 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, HttpModule.class})
 public interface AppComponent {
+    GeeksApp getContext();
+
+    DataManager getDataManager();
+
+
+
 }

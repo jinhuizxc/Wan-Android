@@ -7,5 +7,6 @@ import dagger.Module;
  */
 
 @Module
-public class HttpModule {
+public class HttpModule{
+
 }

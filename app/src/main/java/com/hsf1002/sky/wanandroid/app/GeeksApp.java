@@ -1,10 +1,8 @@
 package com.hsf1002.sky.wanandroid.app;
 
 import android.app.Application;
-import android.app.ApplicationErrorReport;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.SyncStateContract;
 import android.support.v4.content.ContextCompat;
 
 import com.hsf1002.sky.wanandroid.R;
@@ -36,7 +34,6 @@ public class GeeksApp extends Application {
 
     static
     {
-        /*
         SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, refreshLayout) -> {
             //全局设置主题颜色
             refreshLayout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
@@ -48,7 +45,6 @@ public class GeeksApp extends Application {
             return new BallPulseFooter(context).setAnimatingColor(ContextCompat.getColor(context, R.color.colorPrimary));
         });
 
-           */
     }
 
     private DaoSession mDaoSession;
@@ -85,6 +81,11 @@ public class GeeksApp extends Application {
         mDaoSession = daoMaster.newSession();
     }
 
+    public DaoSession getDaoSession()
+    {
+        return mDaoSession;
+    }
+
     private void initBugly()
     {
         String packageName = getApplicationContext().getPackageName();
@@ -95,7 +96,7 @@ public class GeeksApp extends Application {
         CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, false, strategy);
     }
 
-    public static synchronized AppComponent getmAppComponent()
+    public static synchronized AppComponent getAppComponent()
     {
         if (sAppComponent == null)
         {
