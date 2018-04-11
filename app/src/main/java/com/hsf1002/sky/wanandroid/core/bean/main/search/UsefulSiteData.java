@@ -4,20 +4,14 @@ package com.hsf1002.sky.wanandroid.core.bean.main.search;
  * Created by hefeng on 18-4-11.
  */
 
-public class TopSearchData {
-    /**
-     *   "id": 6,
-     * "link": "",
-     * "name": "面试",
-     *"order": 1,
-     * "visible": 1
-     */
+public class UsefulSiteData {
 
     private int id;
-    private String link;
     private String name;
-    private int order;
+    private String link;
     private int visible;
+    private int order;
+    private String icon;
 
     public int getId() {
         return id;
@@ -25,14 +19,6 @@ public class TopSearchData {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     public String getName() {
@@ -43,12 +29,12 @@ public class TopSearchData {
         this.name = name;
     }
 
-    public int getOrder() {
-        return order;
+    public String getLink() {
+        return link;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public int getVisible() {
@@ -57,5 +43,21 @@ public class TopSearchData {
 
     public void setVisible(int visible) {
         this.visible = visible;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

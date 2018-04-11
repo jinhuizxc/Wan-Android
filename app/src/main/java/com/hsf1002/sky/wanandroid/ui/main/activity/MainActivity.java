@@ -10,11 +10,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.ViewStub;
 import android.widget.TextView;
 
 import com.hsf1002.sky.wanandroid.R;
+import com.hsf1002.sky.wanandroid.app.Constants;
 import com.hsf1002.sky.wanandroid.base.activity.BaseActivity;
 import com.hsf1002.sky.wanandroid.base.fragment.BaseFragment;
 import com.hsf1002.sky.wanandroid.contract.main.MainContract;
@@ -92,6 +95,65 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         // split the bottom item space fairly
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        dataManager.setCurrentPage(Constants.FIRST);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item ->
+        {
+            switch (item.getItemId())
+            {
+                case R.id.tab_main_pager:
+                    title.setText(getString(R.string.home_pager));
+                    switchFragment(0);
+                    //mainPagerFragment
+                    dataManager.setCurrentPage(Constants.FIRST);
+                    break;
+                case R.id.tab_knowledge_hierarchy:
+                    title.setText(getString(R.string.knowledge_hierarchy));
+                    switchFragment(1);
+                    //knowledgeHierarchyFragment
+                    dataManager.setCurrentPage(Constants.SECOND);
+                    break;
+                case R.id.tab_navigation:
+                    title.setText(getString(R.string.navigation));
+                    switchFragment(2);
+                    //navigationFragment
+                    dataManager.setCurrentPage(Constants.THIRD);
+                    break;
+                case R.id.tab_project:
+                    title.setText(getString(R.string.project));
+                    switchFragment(3);
+                    //projectFragment
+                    dataManager.setCurrentPage(Constants.FOURTH);
+                    break;
+                default:
+                    break;
+            }
+
+            return true;
+        });
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                View content = drawerLayout.getChildAt(0);
+
+                float scale = 1 - slideOffset;
+                float endScale = 0.8f + scale * 0.2f;
+                float startScale = 1 - 0.3f * scale;
+
+                drawerView.setScaleX(startScale);
+                drawerView.setScaleY(startScale);
+                drawerView.setAlpha(0.6f + 0.4f * (1 - scale));
+
+                content.setTranslationX(drawerView.getMeasuredWidth() * (1 - scale));
+                content.invalidate();
+
+                content.setScaleX(endScale);
+                content.setScaleY(endScale);
+            }
+        };
+        toggle.syncState();
+        drawerLayout.addDrawerListener(toggle);
     }
 
     @Override

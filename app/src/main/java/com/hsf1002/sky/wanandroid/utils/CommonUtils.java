@@ -1,6 +1,8 @@
 package com.hsf1002.sky.wanandroid.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 
 import com.hsf1002.sky.wanandroid.R;
+import com.hsf1002.sky.wanandroid.app.GeeksApp;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -32,6 +35,13 @@ public class CommonUtils {
         View view = snackbar.getView();
         ((TextView)view.findViewById(R.id.snackbar_text)).setTextColor(ContextCompat.getColor(activity, R.color.white));
         snackbar.show();
+    }
+
+    public static boolean isNetworkConnected()
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager) GeeksApp.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        return connectivityManager.getActiveNetworkInfo() != null;
     }
 
     public static String getProcessName(int pid)
