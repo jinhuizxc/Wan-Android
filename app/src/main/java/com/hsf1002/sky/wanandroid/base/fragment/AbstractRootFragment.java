@@ -7,4 +7,6 @@ import com.hsf1002.sky.wanandroid.base.presenter.BasePresenter;
  */
 
 public abstract class AbstractRootFragment<T extends BasePresenter> extends BaseFragment<T> {
+
+
 }

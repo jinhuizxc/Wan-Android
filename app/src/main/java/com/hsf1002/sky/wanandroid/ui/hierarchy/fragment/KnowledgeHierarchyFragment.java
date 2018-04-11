@@ -22,4 +22,9 @@ public class KnowledgeHierarchyFragment  extends AbstractRootFragment<KnowledgeH
 
         return fragment;
     }
+
+    @Override
+    protected void initInject() {
+
+    }
 }

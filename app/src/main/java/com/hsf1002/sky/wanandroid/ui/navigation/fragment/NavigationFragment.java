@@ -22,4 +22,9 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
 
         return fragment;
     }
+
+    @Override
+    protected void initInject() {
+
+    }
 }

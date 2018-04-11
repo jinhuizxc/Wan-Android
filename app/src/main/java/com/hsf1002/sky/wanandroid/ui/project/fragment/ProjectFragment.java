@@ -22,4 +22,9 @@ public class ProjectFragment extends AbstractRootFragment<ProjectPresenter> impl
 
         return fragment;
     }
+
+    @Override
+    protected void initInject() {
+
+    }
 }
