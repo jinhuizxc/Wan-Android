@@ -89,37 +89,42 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
             oneAnimation.setAnimation("W.json");
             oneAnimation.playAnimation();
 
-            oneAnimation.setAnimation("A.json");
-            oneAnimation.playAnimation();
+            twoAnimation.setAnimation("A.json");
+            twoAnimation.playAnimation();
 
-            oneAnimation.setAnimation("N.json");
-            oneAnimation.playAnimation();
+            threeAnimation.setAnimation("N.json");
+            threeAnimation.playAnimation();
 
-            oneAnimation.setAnimation("A.json");
-            oneAnimation.playAnimation();
+            fourAnimation.setAnimation("A.json");
+            fourAnimation.playAnimation();
 
-            oneAnimation.setAnimation("N.json");
-            oneAnimation.playAnimation();
+            fiveAnimation.setAnimation("N.json");
+            fiveAnimation.playAnimation();
 
-            oneAnimation.setAnimation("D.json");
-            oneAnimation.playAnimation();
+            sixAnimation.setAnimation("D.json");
+            sixAnimation.playAnimation();
 
-            oneAnimation.setAnimation("R.json");
-            oneAnimation.playAnimation();
+            sevenAnimation.setAnimation("R.json");
+            sevenAnimation.playAnimation();
 
-            oneAnimation.setAnimation("O.json");
-            oneAnimation.playAnimation();
+            eightAnimation.setAnimation("O.json");
+            eightAnimation.playAnimation();
 
-            oneAnimation.setAnimation("I.json");
-            oneAnimation.playAnimation();
+            nineAnimation.setAnimation("I.json");
+            nineAnimation.playAnimation();
 
-            oneAnimation.setAnimation("D.json");
-            oneAnimation.playAnimation();
+            tenAnimation.setAnimation("D.json");
+            tenAnimation.playAnimation();
         }
     }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void showLoginView() {
 
     }
 

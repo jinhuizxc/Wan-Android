@@ -12,7 +12,17 @@ import javax.inject.Inject;
 
 public class DataManager  implements HttpHelper, DbHelper, PreferenceHelper {
 
+    private HttpHelper httpHelper;
+    private DbHelper dbHelper;
+    private PreferenceHelper preferenceHelper;
+
     @Inject
     public DataManager() {
+    }
+
+    public DataManager(HttpHelper httpHelper, DbHelper dbHelper, PreferenceHelper preferenceHelper) {
+        this.httpHelper = httpHelper;
+        this.dbHelper = dbHelper;
+        this.preferenceHelper = preferenceHelper;
     }
 }

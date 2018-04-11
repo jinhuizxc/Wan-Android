@@ -1,9 +1,5 @@
 package com.hsf1002.sky.wanandroid.base.activity;
 
-import android.content.Context;
-import android.util.AttributeSet;
-import android.view.View;
-
 import com.hsf1002.sky.wanandroid.R;
 import com.hsf1002.sky.wanandroid.app.GeeksApp;
 import com.hsf1002.sky.wanandroid.base.view.AbstractPresenter;

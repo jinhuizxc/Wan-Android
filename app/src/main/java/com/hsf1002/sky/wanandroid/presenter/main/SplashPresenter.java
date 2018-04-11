@@ -1,7 +1,5 @@
 package com.hsf1002.sky.wanandroid.presenter.main;
 
-import android.provider.ContactsContract;
-
 import com.hsf1002.sky.wanandroid.base.presenter.BasePresenter;
 import com.hsf1002.sky.wanandroid.contract.main.SplashContract;
 import com.hsf1002.sky.wanandroid.core.DataManager;
@@ -29,7 +27,7 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
     public void attachView(SplashContract.View view) {
         super.attachView(view);
 
-        long splashTime = 2000;
+        long splashTime = 5000;
         addSubscribe(Observable.timer(splashTime, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(along -> view.jumpToMain())

@@ -10,6 +10,7 @@ public interface BaseView {
     void showError();
 
     void showLoading();
+    void showLoginView();
     void showLogoutView();
 
     void showCollectFail();
