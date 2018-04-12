@@ -78,4 +78,8 @@ public class CommonUtils {
         return null;
     }
 
+    public static <T> T cast(Object object)
+    {
+        return (T)object;
+    }
 }
