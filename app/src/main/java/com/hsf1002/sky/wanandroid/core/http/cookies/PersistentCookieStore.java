@@ -5,4 +5,6 @@ package com.hsf1002.sky.wanandroid.core.http.cookies;
  */
 
 public class PersistentCookieStore {
+
+
 }

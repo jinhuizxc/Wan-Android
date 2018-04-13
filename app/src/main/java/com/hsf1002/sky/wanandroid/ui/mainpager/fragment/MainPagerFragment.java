@@ -23,12 +23,15 @@ import com.hsf1002.sky.wanandroid.core.event.AutoLoginEvent;
 import com.hsf1002.sky.wanandroid.core.event.DismissErrorView;
 import com.hsf1002.sky.wanandroid.core.event.LoginEvent;
 import com.hsf1002.sky.wanandroid.core.event.ShowErrorView;
+import com.hsf1002.sky.wanandroid.core.event.SwitchNavigationEvent;
+import com.hsf1002.sky.wanandroid.core.event.SwitchProjectEvent;
 import com.hsf1002.sky.wanandroid.core.http.cookies.CookiesManager;
 import com.hsf1002.sky.wanandroid.presenter.main.MainPresenter;
 import com.hsf1002.sky.wanandroid.presenter.mainpager.MainPagerPresenter;
 import com.hsf1002.sky.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import com.hsf1002.sky.wanandroid.utils.CommonUtils;
 import com.hsf1002.sky.wanandroid.utils.GlideImageLoader;
+import com.hsf1002.sky.wanandroid.utils.StartActivityUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -110,20 +113,48 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
         feedArticleDataList = new ArrayList<>();
         adapter = new ArticleListAdapter(R.layout.item_search_pager, feedArticleDataList);
-        adapter.setOnItemClickListener((adapter, view, position) ->
+        adapter.setOnItemClickListener((adapter1, view, position) ->
         {
-
+            articlePosition = position;
+            StartActivityUtils.startArticleDetailActivity(_mActivity,
+                    adapter.getData().get(position).getId(),
+                    adapter.getData().get(position).getTitle(),
+                    adapter.getData().get(position).getLink(),
+                    adapter.getData().get(position).isCollect(), false, false);
         });
-        adapter.setOnItemChildClickListener((adapter, view, position) ->
+        adapter.setOnItemChildClickListener((adapter1, view, position) ->
         {
+            switch (view.getId())
+            {
+                case R.id.item_search_pager_chapterName:
+                    StartActivityUtils.startKnowledgeHierarchyDetailActivity(_mActivity, true,
+                            adapter.getData().get(position).getSuperChapterName(),
+                            adapter.getData().get(position).getChapterName(),
+                            adapter.getData().get(position).getChapterId());
+                    break;
+                case R.id.item_search_pager_like_iv:
+                    likeEvent(position);
+                    break;
+                case R.id.item_search_pager_tag_tv:
+                    String superChapterName = adapter.getData().get(position).getSuperChapterName();
+                    if (superChapterName.contains(getString(R.string.open_project)))
+                    {
+                        RxBus.getDefault().post(new SwitchProjectEvent());
+                    }
+                    else if (superChapterName.contains(getString(R.string.navigation)))
+                    {
+                        RxBus.getDefault().post(new SwitchNavigationEvent());
+                    }
+                    break;
 
+            }
         });
 
         LinearLayout headerGroup = ((LinearLayout) LayoutInflater.from(_mActivity).inflate(R.layout.head_banner, null));
         banner = headerGroup.findViewById(R.id.head_banner);
         headerGroup.removeView(banner);
         adapter.addHeaderView(banner);
-
+        //adapter.addFooterView(banner);
         recyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         recyclerView.setAdapter(adapter);
 
@@ -160,7 +191,6 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
     @Override
     public void showArticleList(BaseResponse<FeedArticleListData> feedArticleListResponse, boolean isRefresh) {
-        Log.d("fenghe", "feedArticleListResponse: " + feedArticleListResponse);
         if (feedArticleListResponse == null || feedArticleListResponse.getData() == null
                 || feedArticleListResponse.getData().getDatas() == null)
         {
@@ -212,7 +242,6 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
     @Override
     public void showBannerData(BaseResponse<List<BannerData>> bannerResponse) {
-        Log.d("fenghe", "showBannerData: " + bannerResponse);
         if (bannerResponse == null || bannerResponse.getData() == null)
         {
             showBannerDataFail();
@@ -280,7 +309,9 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
     {
         if (!dataManager.getLoginStatus())
         {
-
+            StartActivityUtils.startLoginActivity(_mActivity);
+            CommonUtils.showToastMessage(_mActivity, getString(R.string.login_tint));
+            return;
         }
         else
         {

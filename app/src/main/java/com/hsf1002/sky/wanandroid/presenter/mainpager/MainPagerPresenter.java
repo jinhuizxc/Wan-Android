@@ -69,7 +69,7 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
     public void loadMainPagerData() {
         String account = dataManager.getLoginAccount();
         String password = dataManager.getLoginPassword();
-        Log.d("fenghe", "loadMainPagerData: ");
+
         Observable<BaseResponse<LoginData>> loginObservable = dataManager.getLoginData(account, password);
         Observable<BaseResponse<List<BannerData>>> bannerObservable = dataManager.getBannerData();
         Observable<BaseResponse<FeedArticleListData>> articleObservable = dataManager.getFeedArticleList(Constants.FIRST);
@@ -100,12 +100,10 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                     dataManager.setLoginStatus(true);
 
                     view.showAutoLoginSuccess();
-                    Log.d("fenghe", "errorCode: success");
                 }
                 else
                 {
                     view.showAutoLoginFail();
-                    Log.d("fenghe", "errorCode: failed");
                 }
 
                 view.showBannerData(CommonUtils.cast(map.get(Constants.BANNER_DATA)));
@@ -115,7 +113,7 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                Log.d("fenghe", "loadMainPagerData: failed");
+
                 view.showAutoLoginFail();
             }
         }));
@@ -134,12 +132,10 @@ public class MainPagerPresenter extends BasePresenter<MainPagerContract.View> im
                     if (feedArticleListDataBaseResponse.getErrorCode() == BaseResponse.SUCCESS)
                     {
                         view.showArticleList(feedArticleListDataBaseResponse, isRefresh);
-                        Log.d("fenghe", "getFeedArticleList: success");
                     }
                     else
                     {
                         view.showArticleListFail();
-                        Log.d("fenghe", "getFeedArticleList: failed");
                     }
                 }
             }));

@@ -15,7 +15,12 @@ public class CookiesManager implements CookieJar {
 
     @Override
     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+        if (cookies.size() > 0)
+        {
+            for (Cookie cookie:cookies) {
 
+            }
+        }
     }
 
     @Override
