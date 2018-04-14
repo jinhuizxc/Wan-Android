@@ -2,6 +2,7 @@ package com.hsf1002.sky.wanandroid.di.component;
 
 import android.app.Activity;
 
+import com.hsf1002.sky.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity;
 import com.hsf1002.sky.wanandroid.ui.main.activity.ArticleDetailActivity;
 import com.hsf1002.sky.wanandroid.ui.main.activity.MainActivity;
 import com.hsf1002.sky.wanandroid.di.module.ActivityModule;
@@ -24,4 +25,6 @@ public interface ActivityComponent {
     void inject(SplashActivity splashActivity);
 
     void inject(ArticleDetailActivity articleDetailActivity);
+
+    void inject(KnowledgeHierarchyDetailActivity knowledgeHierarchyDetailActivity);
 }
