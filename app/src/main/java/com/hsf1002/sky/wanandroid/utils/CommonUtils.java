@@ -2,6 +2,7 @@ package com.hsf1002.sky.wanandroid.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -12,11 +13,13 @@ import android.widget.Toast;
 
 
 import com.hsf1002.sky.wanandroid.R;
+import com.hsf1002.sky.wanandroid.app.Constants;
 import com.hsf1002.sky.wanandroid.app.GeeksApp;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Created by hefeng on 18-4-9.
@@ -76,6 +79,30 @@ public class CommonUtils {
         }
 
         return null;
+    }
+
+    public static int randomColor()
+    {
+        Random random = new Random();
+
+        int red = random.nextInt(150);
+        int green = random.nextInt(150);
+        int blue = random.nextInt(150);
+
+        return Color.rgb(red, green, blue);
+    }
+
+    public static int randomTagColor()
+    {
+        int randomNum = new Random().nextInt();
+        int position = randomNum % Constants.TAB_COLORS.length;
+
+        if (position < 0)
+        {
+            position  = -position;
+        }
+
+        return Constants.TAB_COLORS[position];
     }
 
     public static <T> T cast(Object object)

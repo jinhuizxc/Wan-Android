@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.hsf1002.sky.wanandroid.R;
 import com.hsf1002.sky.wanandroid.app.GeeksApp;
-import com.hsf1002.sky.wanandroid.base.view.AbstractPresenter;
+import com.hsf1002.sky.wanandroid.base.presenter.AbstractPresenter;
 import com.hsf1002.sky.wanandroid.base.view.BaseView;
 import com.hsf1002.sky.wanandroid.di.component.DaggerFragmentComponent;
 import com.hsf1002.sky.wanandroid.di.component.FragmentComponent;

@@ -1,6 +1,6 @@
 package com.hsf1002.sky.wanandroid.contract.mainpager;
 
-import com.hsf1002.sky.wanandroid.base.view.AbstractPresenter;
+import com.hsf1002.sky.wanandroid.base.presenter.AbstractPresenter;
 import com.hsf1002.sky.wanandroid.base.view.BaseView;
 import com.hsf1002.sky.wanandroid.core.bean.BaseResponse;
 import com.hsf1002.sky.wanandroid.core.bean.main.banner.BannerData;

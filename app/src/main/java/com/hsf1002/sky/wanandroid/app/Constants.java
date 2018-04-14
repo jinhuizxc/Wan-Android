@@ -1,5 +1,9 @@
 package com.hsf1002.sky.wanandroid.app;
 
+import android.graphics.Color;
+
+import com.hsf1002.sky.wanandroid.R;
+
 import java.io.File;
 
 /**
@@ -24,12 +28,24 @@ public class Constants {
     public static final String ARG_PARAM1 = "param1";
     public static final String ARG_PARAM2 = "param2";
 
+    public static final int[] TAB_COLORS = new int[]{
+            Color.parseColor("#90C5F0"),
+            Color.parseColor("#91CED5"),
+            Color.parseColor("#F88F55"),
+            Color.parseColor("#C0AFD0"),
+            Color.parseColor("#E78F8F"),
+            Color.parseColor("#67CCB7"),
+            Color.parseColor("#F6BC7E")
+    };
+
 
     public static final String SEARCH_TEXT = "search_text";
     public static final String MENU_BUILDER = "MenuBuilder";
     public static final String LOGIN_DATA = "login_data";
     public static final String BANNER_DATA = "banner_data";
     public static final String ARTICLE_DATA = "article_data";
+
+    public static final int BLUE_THEME = R.color.colorPrimary;
 
 
     public static final String ARTICLE_LINK = "article_link";
@@ -43,4 +59,10 @@ public class Constants {
     public static final String CHAPTER_NAME = "is_chapter_name";
     public static final String SUPER_CHAPTER_NAME = "super_chapter_name";
 
+
+    public static final String ACCOUNT = "account";
+    public static final String PASSWORD = "password";
+    public static final String LOGIN_STATUS = "login_status";
+    public static final String CURRENT_PAGE = "current_page";
+    public static final String PROJECT_CURRENT_PAGE = "project_current_page";
 }

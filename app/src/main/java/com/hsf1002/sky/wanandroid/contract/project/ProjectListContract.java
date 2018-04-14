@@ -1,6 +1,6 @@
 package com.hsf1002.sky.wanandroid.contract.project;
 
-import com.hsf1002.sky.wanandroid.base.view.AbstractPresenter;
+import com.hsf1002.sky.wanandroid.base.presenter.AbstractPresenter;
 import com.hsf1002.sky.wanandroid.base.view.BaseView;
 
 /**

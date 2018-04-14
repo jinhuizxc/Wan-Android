@@ -1,6 +1,5 @@
 package com.hsf1002.sky.wanandroid.base.presenter;
 
-import com.hsf1002.sky.wanandroid.base.view.AbstractPresenter;
 import com.hsf1002.sky.wanandroid.base.view.BaseView;
 
 import io.reactivex.disposables.CompositeDisposable;

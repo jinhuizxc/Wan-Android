@@ -1,12 +1,13 @@
 package com.hsf1002.sky.wanandroid.core.bean.hierarchy;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by hefeng on 18-4-11.
  */
 
-public class KnowledgeHierarchyData {
+public class KnowledgeHierarchyData implements Serializable {
     /**
      *  "children": [],
      "courseId": 13,

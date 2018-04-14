@@ -103,13 +103,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 case R.id.tab_main_pager:
                     title.setText(getString(R.string.home_pager));
                     switchFragment(0);
-                    //mainPagerFragment
+                    mainPagerFragment.reLoad();
                     dataManager.setCurrentPage(Constants.FIRST);
                     break;
                 case R.id.tab_knowledge_hierarchy:
                     title.setText(getString(R.string.knowledge_hierarchy));
                     switchFragment(1);
-                    //knowledgeHierarchyFragment
+                    knowledgeHierarchyFragment.reLoad();
                     dataManager.setCurrentPage(Constants.SECOND);
                     break;
                 case R.id.tab_navigation:
