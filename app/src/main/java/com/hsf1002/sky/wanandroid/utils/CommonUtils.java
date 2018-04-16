@@ -27,6 +27,12 @@ import java.util.Random;
 
 public class CommonUtils {
 
+    public static int dp2px(float dvValue)
+    {
+        final  float scale = GeeksApp.getInstance().getResources().getDisplayMetrics().density;
+        return (int)(dvValue * scale + 0.5f);
+    }
+
     public static void showToastMessage(Activity activity, String msg)
     {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();

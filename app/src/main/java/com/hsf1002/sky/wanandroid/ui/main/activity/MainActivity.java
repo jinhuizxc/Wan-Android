@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 case R.id.tab_navigation:
                     title.setText(getString(R.string.navigation));
                     switchFragment(2);
-                    //navigationFragment
+                    navigationFragment.reLoad();
                     dataManager.setCurrentPage(Constants.THIRD);
                     break;
                 case R.id.tab_project:
