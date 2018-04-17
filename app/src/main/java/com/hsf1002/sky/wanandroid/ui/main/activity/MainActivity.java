@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 case R.id.tab_project:
                     title.setText(getString(R.string.project));
                     switchFragment(3);
-                    //projectFragment
+                    projectFragment.reLoad();
                     dataManager.setCurrentPage(Constants.FOURTH);
                     break;
                 default:
