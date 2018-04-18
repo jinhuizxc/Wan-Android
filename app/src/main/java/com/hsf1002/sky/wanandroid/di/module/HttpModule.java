@@ -115,7 +115,7 @@ public class HttpModule{
         builder.writeTimeout(10, TimeUnit.SECONDS);
 
         builder.retryOnConnectionFailure(true);
-        //builder.cookieJar(new CookiesManager());
+        builder.cookieJar(new CookiesManager());
 
         return builder.build();
     }

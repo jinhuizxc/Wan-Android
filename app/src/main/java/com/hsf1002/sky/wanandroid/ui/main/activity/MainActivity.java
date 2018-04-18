@@ -310,7 +310,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                         CommonAlertDialog.newInstance().cancelDialog(true);
                         navigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
                         dataManager.setLoginStatus(false);
-                        //CookiesManager
+                        CookiesManager.clearAllCookies();
                         RxBus.getDefault().post(new LoginEvent(false));
                         StartActivityUtils.startLoginActivity(this);
                 },

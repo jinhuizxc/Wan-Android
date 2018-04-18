@@ -18,15 +18,18 @@ public class CookiesManager implements CookieJar {
         if (cookies.size() > 0)
         {
             for (Cookie cookie:cookies) {
-                //COOKIE_STORE.add(url, cookie);
+                COOKIE_STORE.add(url, cookie);
             }
         }
     }
 
     @Override
     public List<Cookie> loadForRequest(HttpUrl url) {
-        return null;
+        return COOKIE_STORE.get(url);
     }
 
-
+    public static void clearAllCookies()
+    {
+        COOKIE_STORE.removeAll();
+    }
 }
