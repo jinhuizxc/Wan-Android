@@ -5,7 +5,9 @@ import android.content.Intent;
 
 import com.hsf1002.sky.wanandroid.app.Constants;
 import com.hsf1002.sky.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity;
+import com.hsf1002.sky.wanandroid.ui.main.activity.AboutUsActivity;
 import com.hsf1002.sky.wanandroid.ui.main.activity.ArticleDetailActivity;
+import com.hsf1002.sky.wanandroid.ui.main.activity.CollectActivity;
 import com.hsf1002.sky.wanandroid.ui.main.activity.LoginActivity;
 import com.hsf1002.sky.wanandroid.ui.main.activity.SearchListActivity;
 
@@ -45,6 +47,16 @@ public class StartActivityUtils {
 
     public static void startLoginActivity(Context mActivity) {
         Intent intent = new Intent(mActivity, LoginActivity.class);
+        mActivity.startActivity(intent);
+    }
+
+    public static void startCollectActivity(Context mActivity) {
+        Intent intent = new Intent(mActivity, CollectActivity.class);
+        mActivity.startActivity(intent);
+    }
+
+    public static void startAboutUsActivity(Context mActivity) {
+        Intent intent = new Intent(mActivity, AboutUsActivity.class);
         mActivity.startActivity(intent);
     }
 }

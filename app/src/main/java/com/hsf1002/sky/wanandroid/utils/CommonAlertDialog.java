@@ -80,4 +80,41 @@ public class CommonAlertDialog {
             negBtn.setVisibility(View.GONE);
         }
     }
+
+    public void showDialog(Activity mActivity, String content, String btnContent, String neContent,
+                           final View.OnClickListener onPoClickListener,
+                           final View.OnClickListener onNeClickListener) {
+        if (mActivity == null)
+        {
+            return;
+        }
+
+        if (alertDialog == null)
+        {
+            alertDialog = new AlertDialog.Builder(mActivity, R.style.myCorDialog).create();
+        }
+
+        if (!alertDialog.isShowing())
+        {
+            alertDialog.show();
+        }
+
+        alertDialog.setCanceledOnTouchOutside(false);
+        Window window = alertDialog.getWindow();
+
+        if (window != null) {
+            window.setContentView(R.layout.common_alert_dialog);
+            TextView contentTv = (TextView) window.findViewById(R.id.dialog_content);
+            contentTv.setText(content);
+            Button mOkBtn = (Button) window.findViewById(R.id.dialog_btn);
+            mOkBtn.setText(btnContent);
+            mOkBtn.setOnClickListener(onPoClickListener);
+            View btnDivider = window.findViewById(R.id.dialog_btn_divider);
+            btnDivider.setVisibility(View.VISIBLE);
+            Button mNeBtn = (Button) window.findViewById(R.id.dialog_negative_btn);
+            mNeBtn.setText(neContent);
+            mNeBtn.setVisibility(View.VISIBLE);
+            mNeBtn.setOnClickListener(onNeClickListener);
+        }
+    }
 }

@@ -47,6 +47,8 @@ public class Constants {
 
     public static final int BLUE_THEME = R.color.colorPrimary;
 
+    public static final long CLICK_TIME_AREA = 1000;
+
 
     public static final String ARTICLE_LINK = "article_link";
     public static final String ARTICLE_TITLE = "article_title";

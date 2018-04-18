@@ -20,8 +20,11 @@ import com.hsf1002.sky.wanandroid.R;
 import com.hsf1002.sky.wanandroid.app.Constants;
 import com.hsf1002.sky.wanandroid.base.activity.BaseActivity;
 import com.hsf1002.sky.wanandroid.base.fragment.BaseFragment;
+import com.hsf1002.sky.wanandroid.component.RxBus;
 import com.hsf1002.sky.wanandroid.contract.main.MainContract;
 import com.hsf1002.sky.wanandroid.core.DataManager;
+import com.hsf1002.sky.wanandroid.core.event.LoginEvent;
+import com.hsf1002.sky.wanandroid.core.http.cookies.CookiesManager;
 import com.hsf1002.sky.wanandroid.presenter.main.MainPresenter;
 import com.hsf1002.sky.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment;
 import com.hsf1002.sky.wanandroid.ui.mainpager.fragment.MainPagerFragment;
@@ -29,6 +32,8 @@ import com.hsf1002.sky.wanandroid.ui.navigation.fragment.NavigationFragment;
 import com.hsf1002.sky.wanandroid.ui.project.fragment.ProjectFragment;
 import com.hsf1002.sky.wanandroid.utils.BottomNavigationViewHelper;
 import com.hsf1002.sky.wanandroid.utils.CommonAlertDialog;
+import com.hsf1002.sky.wanandroid.utils.CommonUtils;
+import com.hsf1002.sky.wanandroid.utils.StartActivityUtils;
 import com.hsf1002.sky.wanandroid.utils.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -158,7 +163,27 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void showLoginView() {
+        if (navigationView == null)
+        {
+            return;
+        }
+        ustv = navigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
+        ustv.setText(dataManager.getLoginAccount());
+        ustv.setOnClickListener(null);
+        navigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
+    }
 
+    @Override
+    public void showLogoutView() {
+        super.showLogoutView();
+
+        ustv.setText(R.string.login_in);
+        ustv.setOnClickListener(v -> StartActivityUtils.startLoginActivity(this));
+        if (navigationView == null)
+        {
+            return;
+        }
+        navigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
     }
 
     @Override
@@ -238,6 +263,60 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private void initNavigationView()
     {
         ustv = navigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
+
+        if (dataManager.getLoginStatus())
+        {
+            showLoginView();
+        }
+        else
+        {
+            showLogoutView();
+        }
+
+        navigationView.getMenu().findItem(R.id.nav_item_my_collect)
+                .setOnMenuItemClickListener( item ->
+                {
+                    if (dataManager.getLoginStatus())
+                    {
+                        StartActivityUtils.startCollectActivity(this);
+                        return true;
+                    }
+                    else
+                    {
+                        StartActivityUtils.startLoginActivity(this);
+                        CommonUtils.showToastMessage(this, getString(R.string.login_tint));
+                        return true;
+                    }
+
+                });
+        navigationView.getMenu().findItem(R.id.nav_item_about_us)
+                .setOnMenuItemClickListener( item ->
+                {
+                    StartActivityUtils.startAboutUsActivity(this);
+                    return true;
+                });
+        navigationView.getMenu().findItem(R.id.nav_item_logout)
+                .setOnMenuItemClickListener( item ->
+                {
+                    logout();
+                    return true;
+                });
+    }
+
+    private void logout()
+    {
+        CommonAlertDialog.newInstance().showDialog(this, getString(R.string.login_tint), getString(R.string.ok), getString(R.string.no),
+                v -> {
+                        CommonAlertDialog.newInstance().cancelDialog(true);
+                        navigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
+                        dataManager.setLoginStatus(false);
+                        //CookiesManager
+                        RxBus.getDefault().post(new LoginEvent(false));
+                        StartActivityUtils.startLoginActivity(this);
+                },
+                v -> {
+                        CommonAlertDialog.newInstance().cancelDialog(true);
+                });
     }
 
     @Override
