@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.hsf1002.sky.wanandroid.ui.hierarchy.activity.KnowledgeHierarchyDetailActivity;
 import com.hsf1002.sky.wanandroid.ui.main.activity.ArticleDetailActivity;
+import com.hsf1002.sky.wanandroid.ui.main.activity.CollectActivity;
 import com.hsf1002.sky.wanandroid.ui.main.activity.LoginActivity;
 import com.hsf1002.sky.wanandroid.ui.main.activity.MainActivity;
 import com.hsf1002.sky.wanandroid.di.module.ActivityModule;
@@ -30,4 +31,6 @@ public interface ActivityComponent {
     void inject(KnowledgeHierarchyDetailActivity knowledgeHierarchyDetailActivity);
 
     void inject(LoginActivity loginActivity);
+
+    void inject(CollectActivity collectActivity);
 }

@@ -18,7 +18,7 @@ public class CookiesManager implements CookieJar {
         if (cookies.size() > 0)
         {
             for (Cookie cookie:cookies) {
-
+                //COOKIE_STORE.add(url, cookie);
             }
         }
     }
@@ -27,4 +27,6 @@ public class CookiesManager implements CookieJar {
     public List<Cookie> loadForRequest(HttpUrl url) {
         return null;
     }
+
+
 }
