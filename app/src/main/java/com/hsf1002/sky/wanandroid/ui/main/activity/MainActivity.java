@@ -1,6 +1,5 @@
 package com.hsf1002.sky.wanandroid.ui.main.activity;
 
-import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,6 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.hsf1002.sky.wanandroid.core.event.LoginEvent;
 import com.hsf1002.sky.wanandroid.core.http.cookies.CookiesManager;
 import com.hsf1002.sky.wanandroid.presenter.main.MainPresenter;
 import com.hsf1002.sky.wanandroid.ui.hierarchy.fragment.KnowledgeHierarchyFragment;
+import com.hsf1002.sky.wanandroid.ui.main.fragment.SearchDialogFragment;
 import com.hsf1002.sky.wanandroid.ui.mainpager.fragment.MainPagerFragment;
 import com.hsf1002.sky.wanandroid.ui.navigation.fragment.NavigationFragment;
 import com.hsf1002.sky.wanandroid.ui.project.fragment.ProjectFragment;
@@ -41,6 +43,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
@@ -162,6 +165,37 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
+    public void showError() {
+        errorView.setVisibility(View.VISIBLE);
+        TextView reload = findViewById(R.id.error_reload_tv);
+
+        reload.setOnClickListener( v ->
+        {
+            mainPagerFragment.reLoad();
+            knowledgeHierarchyFragment.reLoad();
+            navigationFragment.reLoad();
+            projectFragment.reLoad();
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        return true;//super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_search)
+        {
+            SearchDialogFragment searchDialogFragment = new SearchDialogFragment();
+            searchDialogFragment.show(getFragmentManager(), "SearchDialogFragment");
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void showLoginView() {
         if (navigationView == null)
         {
@@ -186,29 +220,82 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         navigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
     }
 
+    @OnClick({R.id.main_floating_action_btn})
+    void onClick(View view)
+    {
+        switch(view.getId())
+        {
+            case R.id.main_floating_action_btn:
+                jumpToTop();
+                break;
+            default:
+                break;
+        }
+    }
+
+
     @Override
     public void showDismissErrorView() {
-
+        if (errorView != null)
+        {
+            errorView.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void showErrorView() {
-
+        if (errorView != null)
+        {
+            showError();
+        }
     }
 
     @Override
     public void showSwitchProject() {
-
+        bottomNavigationView.setSelectedItemId(R.id.tab_project);
     }
 
     @Override
     public void showSwitchNavigation() {
-
+        bottomNavigationView.setSelectedItemId(R.id.tab_navigation);
     }
 
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
+    }
+
+    private void jumpToTop()
+    {
+        switch(dataManager.getCurrentPage())
+        {
+            case Constants.FIRST:
+                if (mainPagerFragment != null)
+                {
+                    mainPagerFragment.jumpToTop();
+                }
+                break;
+            case Constants.SECOND:
+                if (knowledgeHierarchyFragment != null)
+                {
+                    knowledgeHierarchyFragment.jumpToTop();
+                }
+                break;
+            case Constants.THIRD:
+                if (navigationFragment != null)
+                {
+                    navigationFragment.jumpToTop();
+                }
+                break;
+            case Constants.FOURTH:
+                if (projectFragment != null)
+                {
+                    projectFragment.jumpToTop();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private void initToolbar()

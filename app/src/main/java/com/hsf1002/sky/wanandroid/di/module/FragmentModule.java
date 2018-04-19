@@ -1,7 +1,7 @@
 package com.hsf1002.sky.wanandroid.di.module;
 
 import android.app.Activity;
-import android.support.v4.app.DialogFragment;
+import android.app.DialogFragment;
 import android.support.v4.app.Fragment;
 
 import com.hsf1002.sky.wanandroid.di.scope.FragmentScope;
