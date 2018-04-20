@@ -317,7 +317,8 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
 
     @Override
     public void judgeToTheSearchListActivity() {
-
+        backEvent();
+        StartActivityUtils.startSearchListActivity(getActivity(), searchEdit.getText().toString().trim());
     }
 
     @Override

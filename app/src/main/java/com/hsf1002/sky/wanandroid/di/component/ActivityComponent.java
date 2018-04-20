@@ -9,6 +9,7 @@ import com.hsf1002.sky.wanandroid.ui.main.activity.LoginActivity;
 import com.hsf1002.sky.wanandroid.ui.main.activity.MainActivity;
 import com.hsf1002.sky.wanandroid.di.module.ActivityModule;
 import com.hsf1002.sky.wanandroid.di.scope.ActivityScope;
+import com.hsf1002.sky.wanandroid.ui.main.activity.SearchListActivity;
 import com.hsf1002.sky.wanandroid.ui.main.activity.SplashActivity;
 
 import dagger.Component;
@@ -33,4 +34,6 @@ public interface ActivityComponent {
     void inject(LoginActivity loginActivity);
 
     void inject(CollectActivity collectActivity);
+
+    void inject(SearchListActivity searchListActivity);
 }
