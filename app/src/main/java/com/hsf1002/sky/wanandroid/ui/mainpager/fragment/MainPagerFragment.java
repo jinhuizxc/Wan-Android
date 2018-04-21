@@ -265,8 +265,9 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
         banner.isAutoPlay(true);
         banner.setDelayTime(bannerDataList.size() * 400);
         banner.setIndicatorGravity(BannerConfig.CENTER);
-        banner.setOnBannerListener( null );
-
+        banner.setOnBannerListener(i -> StartActivityUtils.startArticleDetailActivity(_mActivity,
+                0, bannerTitleList.get(i), bannerUrlList.get(i),
+                false, false, true));
         banner.start();
     }
 
