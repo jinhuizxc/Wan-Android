@@ -31,3 +31,52 @@ if (oneAnimation != null)
     oneAnimation.cancelAnimation();
 }
 ```
+
+### com.scwang.smartrefresh:SmartRefreshLayout
+```
+implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
+```
+
+```
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/normal_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="invisible">
+<!-- com.scwang.smartrefresh.layout.header.ClassicsHeader -->
+    <com.scwang.smartrefresh.header.PhoenixHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground" />
+<!-- com.scwang.smartrefresh.layout.footer.ClassicsFooter -->
+    <com.scwang.smartrefresh.header.TaurusHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+```
+```
+@BindView(R.id.normal_view)
+SmartRefreshLayout refreshLayout;
+```
+```
+private void setRefresh()
+{
+    refreshLayout.setOnRefreshListener( refreshLayout1 ->
+    {
+        presenter.autoRefresh();
+        refreshLayout1.finishRefresh(1000);
+    });
+
+    refreshLayout.setOnLoadMoreListener(refreshLayout1 ->
+    {
+        presenter.loadMore();
+        refreshLayout1.finishLoadMore(1000);
+    });
+}
+```
