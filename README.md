@@ -80,3 +80,64 @@ private void setRefresh()
     });
 }
 ```
+### com.youth.banner:banner
+```
+implementation "com.youth.banner:banner:1.4.10"
+```
+```
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.youth.banner.Banner
+        android:id="@+id/head_banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        android:padding="@dimen/dp_10" />
+</LinearLayout>
+```
+```
+private Banner banner;
+
+LinearLayout headerGroup = ((LinearLayout) LayoutInflater.from(_mActivity).inflate(R.layout.head_banner, null));
+banner = headerGroup.findViewById(R.id.head_banner);
+headerGroup.removeView(banner);
+// public class ArticleListAdapter extends BaseQuickAdapter<FeedArticleData, KnowledgeHierarchyListViewHolder> {
+adapter.addHeaderView(banner);
+
+...............
+banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
+banner.setImageLoader(new GlideImageLoader());
+banner.setImages(bannerImageList);
+banner.setBannerAnimation(Transformer.DepthPage);
+banner.setBannerTitles(bannerTitleList);
+banner.isAutoPlay(true);
+banner.setDelayTime(bannerDataList.size() * 400);
+banner.setIndicatorGravity(BannerConfig.CENTER);
+banner.setOnBannerListener( null );
+
+banner.start();
+
+```
+```
+@Override
+public void onResume() {
+    super.onResume();
+
+    if (banner != null)
+    {
+        banner.startAutoPlay();
+    }
+}
+
+@Override
+public void onStop() {
+    super.onStop();
+
+    if (banner != null)
+    {
+        banner.stopAutoPlay();
+    }
+}
+```
