@@ -96,6 +96,9 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
 
     @Override
     protected void initInject() {
+        /*
+        * init the presenter, of vital importance
+        * */
         getFragmentComponent().inject(this);
     }
 

@@ -21,6 +21,16 @@ import javax.inject.Inject;
 
 public abstract class BaseFragment<T extends AbstractPresenter> extends AbstractSimpleFragment implements BaseView {
 
+    /*
+    init the presenter by injection
+    MainPagerFragment -> initInject() -> FragmentComponent -> MainPagerPresenter -> attachView
+    KnowledgeHierarchyFragment -> initInject() -> FragmentComponent -> KnowledgeHierarchyPresenter -> attachView
+    KnowledgeHierarchyListFragment -> initInject() -> FragmentComponent -> KnowledgeHierarchyListPresenter -> attachView
+    ProjectFragment -> initInject() -> FragmentComponent -> ProjectListPresenter -> attachView
+    NavigationFragment -> initInject() -> FragmentComponent -> NavigationPresenter -> attachView
+    ProjectListFragment -> initInject() -> FragmentComponent -> MainPagerPresenter -> attachView
+    SearchDialogFragment -> initInject() -> FragmentComponent -> SearchPresenter -> attachView
+    */
     @Inject
     protected T presenter;
 
