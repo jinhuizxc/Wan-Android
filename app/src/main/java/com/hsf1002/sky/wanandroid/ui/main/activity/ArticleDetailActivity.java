@@ -148,6 +148,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         return super.onOptionsItemSelected(item);
     }
 
+    // called when the flow menu visible, set the menu items having with icons
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
         if (menu != null)

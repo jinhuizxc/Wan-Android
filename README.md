@@ -253,3 +253,74 @@ protected void onDestroy() {
     super.onDestroy();
 }
 ```
+### q.rorbin:VerticalTabLayout
+```
+implementation "q.rorbin:VerticalTabLayout:1.2.5"
+```
+```
+<q.rorbin.verticaltablayout.VerticalTabLayout
+    android:id="@+id/navigation_tab_layout"
+    android:layout_width="@dimen/dp_100"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    app:tab_height="@dimen/dp_50"
+    app:indicator_color="@color/white"
+    app:indicator_gravity="fill"
+    app:tab_margin="@dimen/dp_15"
+    app:tab_mode="scrollable" />
+```
+```
+@BindView(R.id.navigation_tab_layout)
+VerticalTabLayout verticalTabLayout;
+```
+```
+verticalTabLayout.setTabAdapter(new TabAdapter() {
+    @Override
+    public int getCount() {
+        return navigationListDataList == null ? 0 : navigationListDataList.size();
+    }
+
+    @Override
+    public ITabView.TabBadge getBadge(int position) {
+        return null;
+    }
+
+    @Override
+    public ITabView.TabIcon getIcon(int position) {
+        return null;
+    }
+
+    @Override
+    public ITabView.TabTitle getTitle(int position) {
+        return new TabView.TabTitle.Builder()
+                .setContent(navigationListDataList.get(position).getName())
+                .setTextColor(R.color.blue, R.color.black)
+                .build();
+    }
+
+    @Override
+    public int getBackground(int position) {
+        return -1;
+    }
+});
+
+verticalTabLayout.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
+    @Override
+    public void onTabSelected(TabView tab, int position) {
+        isClickTab = true;
+        selectTag(position);
+    }
+
+    @Override
+    public void onTabReselected(TabView tab, int position) {
+
+    }
+});
+
+private void selectTag(int i)
+{
+    index = i;
+    recyclerView.stopScroll();
+    smoothScrollToPosition(i);
+}
+```

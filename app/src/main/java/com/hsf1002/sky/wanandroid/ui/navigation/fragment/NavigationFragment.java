@@ -210,6 +210,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
         });
     }
 
+    // relocate vertical view's by recycle's position
     private void rightLinkageLeft(int newState)
     {
         if (newState == RecyclerView.SCROLL_STATE_IDLE)
@@ -251,6 +252,7 @@ public class NavigationFragment extends AbstractRootFragment<NavigationPresenter
         index = i;
     }
 
+    // relocate recycleview by vertical view's position
     private void smoothScrollToPosition(int i)
     {
         int first = manager.findFirstVisibleItemPosition();
