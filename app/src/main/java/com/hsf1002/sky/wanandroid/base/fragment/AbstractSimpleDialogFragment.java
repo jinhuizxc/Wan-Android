@@ -20,7 +20,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public abstract class AbstractSimpleDialogFragment extends DialogFragment {
     private Unbinder unbinder;
-    private View rootView;
+    protected View rootView;
     private CompositeDisposable compositeDisposable;
 
     @Nullable
