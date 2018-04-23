@@ -60,6 +60,9 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     private String chapterName;
 
 
+    /*
+    * init the presenter, of vital importance
+    * */
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);

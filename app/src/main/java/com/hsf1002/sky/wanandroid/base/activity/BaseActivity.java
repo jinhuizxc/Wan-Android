@@ -17,6 +17,15 @@ import javax.inject.Inject;
 
 public abstract class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleActivity implements BaseView {
 
+    /* init by injection
+    MainActivity -> initInject -> ActivityComponent -> MainPresenter -> attachView
+    SplashActivity -> initInject -> ActivityComponent -> SplashPresenter -> attachView
+    ArticleDetailActivity -> initInject -> ActivityComponent -> ArticleDetailPresenter -> attachView
+    KnowledgeHierarchyDetailActivity -> initInject -> ActivityComponent -> KnowledgeHierarchyDetailPresenter -> attachView
+    LoginActivity -> initInject -> ActivityComponent -> LoginPresenter -> attachView
+    CollectActivity -> initInject -> ActivityComponent -> CollectPresenter -> attachView
+    SearchListActivity -> initInject -> ActivityComponent -> SearchListPresenter -> attachView
+    * */
     @Inject
     protected T presenter;
 

@@ -260,6 +260,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         bottomNavigationView.setSelectedItemId(R.id.tab_navigation);
     }
 
+    /*
+    * init the presenter, of vital importance
+    * */
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
