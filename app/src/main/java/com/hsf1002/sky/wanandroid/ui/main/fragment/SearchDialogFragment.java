@@ -2,7 +2,6 @@ package com.hsf1002.sky.wanandroid.ui.main.fragment;
 
 import android.app.DialogFragment;
 import android.graphics.drawable.Drawable;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -51,7 +50,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -163,6 +161,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
             }
         });
 
+        // 防手抖,仅执行1秒内的第一次事件
         RxView.clicks(searchTv)
                 .throttleFirst(Constants.CLICK_TIME_AREA, TimeUnit.MILLISECONDS)
                 .filter( o -> !TextUtils.isEmpty(searchEdit.getText().toString().trim()))
@@ -224,8 +223,19 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     private void initCircleAnimation()
     {
         circularRevealAnim = new CircularRevealAnim();
-        //circularRevealAnim.set
+        circularRevealAnim.setAnimListener(this);
         searchEdit.getViewTreeObserver().addOnPreDrawListener(this);
+    }
+
+    @Override
+    public void onHideAnimationEnd() {
+        searchEdit.setText("");
+        dismiss();
+    }
+
+    @Override
+    public void onShowAnimationEnd() {
+        KeyBoardUtils.openKeyBoard(getActivity(), searchEdit);
     }
 
     private void initDialog()
@@ -324,7 +334,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     @Override
     public boolean onPreDraw() {
         searchEdit.getViewTreeObserver().removeOnPreDrawListener(this);
-        //circularRevealAnim
+        circularRevealAnim.show(searchEdit, rootView);
         return true;
     }
 
@@ -352,7 +362,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     private void backEvent()
     {
         KeyBoardUtils.closeKeyBoard(getActivity(), searchEdit);
-        //circularRevealAnim
+        circularRevealAnim.hide(searchEdit, rootView);
     }
 
     private void setHistoryTvStatus(boolean isClearAll)
