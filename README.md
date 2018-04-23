@@ -394,3 +394,43 @@ public ProjectListViewHolder(View view) {
   }
 }
 ```
+### com.hyman:flowlayout-lib
+```
+implementation "com.hyman:flowlayout-lib:1.1.2"
+```
+```
+<com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/top_search_flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:max_select="0" />
+```
+```
+@BindView(R.id.top_search_flow_layout)
+TagFlowLayout topSearchTagFlow;
+```
+```
+topSearchTagFlow.setAdapter(new TagAdapter<TopSearchData>(topSearchDataList) {
+            @Override
+            public View getView(FlowLayout parent, int position, TopSearchData topSearchData) {
+                assert getActivity() != null;
+
+                TextView tv = (TextView)LayoutInflater.from(getActivity()).inflate(R.layout.flow_layout_tv, parent, false);
+                if (topSearchData != null)
+                {
+                    tv.setText(topSearchData.getName());
+                }
+
+                topSearchTagFlow.setOnTagClickListener((view, position1, parent1) ->
+                {
+                    presenter.addHistoryData(topSearchDataList.get(position1).getName().trim());
+                    setHistoryTvStatus(false);
+                    searchEdit.setText(topSearchDataList.get(position1).getName().trim());
+                    searchEdit.setSelection(searchEdit.getText().length());
+                    return true;
+                });
+
+                return tv;
+            }
+        });
+```
