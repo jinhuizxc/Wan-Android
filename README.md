@@ -204,3 +204,52 @@ viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
 });
 slidingTabLayout.setViewPager(viewPager);
 ```
+
+### com.just.agentweb:agentweb
+```
+implementation 'com.just.agentweb:agentweb:3.1.0'
+```
+```
+<FrameLayout
+        android:id="@+id/article_detail_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false" />
+```
+```
+@BindView(R.id.article_detail_web_view)
+FrameLayout webview;
+
+private AgentWeb agentWeb;
+```
+```
+@Override
+protected void initEventAndData() {
+    agentWeb = AgentWeb.with(this)
+            .setAgentWebParent(webview, new LinearLayout.LayoutParams(-1, -1))
+            .useDefaultIndicator()
+            .defaultProgressBarColor()
+            .setMainFrameErrorView(R.layout.webview_error_view, -1)
+            .createAgentWeb()
+            .ready()
+            .go(link);
+}
+
+@Override
+protected void onPause() {
+    super.onPause();
+    agentWeb.getWebLifeCycle().onPause();
+}
+
+@Override
+protected void onResume() {
+    super.onResume();
+    agentWeb.getWebLifeCycle().onResume();
+}
+
+@Override
+protected void onDestroy() {
+    agentWeb.getWebLifeCycle().onDestroy();
+    super.onDestroy();
+}
+```
