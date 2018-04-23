@@ -324,3 +324,73 @@ private void selectTag(int i)
     smoothScrollToPosition(i);
 }
 ```
+### com.github.CymChad:BaseRecyclerViewAdapterHelper
+```
+implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+```
+```
+private ProjectListAdapter adapter;
+
+adapter = new ProjectListAdapter(R.layout.item_project_list, dataList);
+        adapter.setOnItemClickListener(((adapter1, view, position) ->
+        {
+            StartActivityUtils.startArticleDetailActivity(_mActivity,
+                    adapter.getData().get(position).getId(),
+                    adapter.getData().get(position).getTitle().trim(),
+                    adapter.getData().get(position).getLink().trim(),
+                    adapter.getData().get(position).isCollect(),
+                    false, true);
+        }));
+        adapter.setOnItemChildClickListener(((adapter1, view, position) ->
+        {
+            switch (view.getId())
+            {
+                case R.id.item_project_list_install_tv:
+                    if (TextUtils.isEmpty(adapter.getData().get(position).getApkLink()))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(adapter.getData().get(position).getApkLink())));
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }));
+
+        recyclerView.setAdapter(adapter);
+```
+```
+public class ProjectListAdapter extends BaseQuickAdapter<FeedArticleData, ProjectListViewHolder>{
+
+    public ProjectListAdapter(int layoutResId, @Nullable List<FeedArticleData> data) {
+        super(layoutResId, data);
+    }
+
+    @Override
+    protected void convert(ProjectListViewHolder helper, FeedArticleData item) {
+      if (!TextUtils.isEmpty(item.getApkLink()))
+        {
+            helper.getView(R.id.item_project_list_install_tv).setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            helper.getView(R.id.item_project_list_install_tv).setVisibility(View.GONE);
+        }
+
+        helper.addOnClickListener(R.id.item_project_list_install_tv);
+    }
+```
+```
+public class ProjectListViewHolder extends BaseViewHolder{
+  @BindView(R.id.item_project_list_install_tv)
+  TextView install;
+
+public ProjectListViewHolder(View view) {
+    super(view);
+    ButterKnife.bind(this, view);
+  }
+}
+```
