@@ -115,7 +115,9 @@ banner.setBannerTitles(bannerTitleList);
 banner.isAutoPlay(true);
 banner.setDelayTime(bannerDataList.size() * 400);
 banner.setIndicatorGravity(BannerConfig.CENTER);
-banner.setOnBannerListener( null );
+mBanner.setOnBannerListener(i -> JudgeUtils.startArticleDetailActivity(_mActivity,
+                0, mBannerTitleList.get(i), mBannerUrlList.get(i),
+                false, false, true));
 
 banner.start();
 
@@ -140,4 +142,65 @@ public void onStop() {
         banner.stopAutoPlay();
     }
 }
+```
+
+### com.flyco.tablayout.SlidingTabLayout
+```
+implementation "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
+```
+```
+<android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="false"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    app:elevation="@dimen/dp_0">
+
+    <include layout="@layout/common_toolbar_no_scroll" />
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/knowledge_hierarchy_detail_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/colorPrimary"
+        app:tl_textAllCaps="false"
+        app:tl_textBold="BOTH"
+        app:tl_textsize="@dimen/sp_14" />
+</android.support.design.widget.AppBarLayout>
+
+<android.support.v4.view.ViewPager
+    android:id="@+id/knowledge_hierarchy_detail_viewpager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+```
+```
+@BindView(R.id.knowledge_hierarchy_detail_tab_layout)
+SlidingTabLayout slidingTabLayout;
+```
+```
+viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+    @Override
+    public Fragment getItem(int position) {
+        return fragments.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return fragments.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        if (getIntent().getBooleanExtra(Constants.IS_SINGLE_CHAPTER, false))
+        {
+            return  chapterName;
+        }
+        else {
+            return knowledgeHierarchyDataList.get(position).getName().trim();
+        }
+    }
+});
+slidingTabLayout.setViewPager(viewPager);
 ```
