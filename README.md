@@ -471,7 +471,8 @@ CookiesManager.clearAllCookies();
 ```
 implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
 ```
-[腾讯bugly](https://bugly.qq.com/v2/workbench/apps)
+[腾讯bugly](https://bugly.qq.com/v2/workbench/apps)  
+`在Application的onCreate中初始化`  
 ```
 private void initBugly()
 {
@@ -489,7 +490,8 @@ private void initBugly()
 debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 androidTestImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-```    
+```   
+`在Application的onCreate中初始化`  
 ```
 private RefWatcher refWatcher;
 
@@ -501,4 +503,73 @@ public static RefWatcher getRefWatcher(Context context)
 ```
 ```
 refWatcher = LeakCanary.install(this);
+```
+
+### GreenDao的使用
+```
+apply plugin: 'org.greenrobot.greendao'
+...
+greendao {
+    schemaVersion 1
+    targetGenDir 'src/main/java'
+    daoPackage 'com.hsf1002.sky.wanandroid.core.dao'
+}
+...
+implementation 'org.greenrobot:greendao:3.2.2'
+```
+```
+@Entity
+public class HistoryData {
+    private long date;
+    private String data;
+
+    @Generated(hash = 1452354993)
+    public HistoryData(long date, String data) {
+        this.date = date;
+        this.data = data;
+    }
+    @Generated(hash = 422767273)
+    public HistoryData() {
+    }
+    public long getDate() {
+        return this.date;
+    }
+    public void setDate(long date) {
+        this.date = date;
+    }
+    public String getData() {
+        return this.data;
+    }
+    public void setData(String data) {
+        this.data = data;
+    }
+}
+```
+`创建实例文件后make project,会自动生成3个文件,HistoryDataDao, DaoMaster和DaoSession,接着在Application的onCreate中初始化`  
+```
+private DaoSession mDaoSession;
+
+private void initGreenDao()
+{
+    DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(this, Constants.DB_NAME);
+    SQLiteDatabase database = devOpenHelper.getWritableDatabase();
+    DaoMaster daoMaster = new DaoMaster(database);
+    mDaoSession = daoMaster.newSession();
+}
+
+public DaoSession getDaoSession()
+{
+    return mDaoSession;
+}
+```
+`最后根据daoSession和HistoryDataDao进行增删改插操作`  
+```
+@Override
+public List<HistoryData> loadAllHistoryData() {
+    HistoryDataDao historyDataDao = daoSession.getHistoryDataDao();
+
+    return historyDataDao.loadAll();
+}
+...
+...
 ```
