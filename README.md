@@ -483,3 +483,22 @@ private void initBugly()
     CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, false, strategy);
 }
 ```
+
+### LeakCanary检测
+```
+debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+androidTestImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+```    
+```
+private RefWatcher refWatcher;
+
+public static RefWatcher getRefWatcher(Context context)
+{
+    GeeksApp application = (GeeksApp)context.getApplicationContext();
+    return application.refWatcher;
+}
+```
+```
+refWatcher = LeakCanary.install(this);
+```
