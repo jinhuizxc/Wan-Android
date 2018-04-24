@@ -1,7 +1,6 @@
 package com.hsf1002.sky.wanandroid.ui.main.activity;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-
 
 import com.hsf1002.sky.wanandroid.R;
 import com.hsf1002.sky.wanandroid.app.Constants;
@@ -107,7 +105,7 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
                             adapter.getData().get(position).getChapterId());
                     break;
                 case R.id.item_search_pager_like_iv:
-                    likeEvnet(position);
+                    likeEvent(position);
                     break;
                 case R.id.item_search_pager_tag_tv:
                     String superChapterName = adapter.getData().get(position).getSuperChapterName();
@@ -183,12 +181,20 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
 
     @Override
     public void showCollectSuccess() {
-
+        if (articlePosition < adapter.getData().size())
+        {
+            adapter.getData().get(articlePosition).setCollect(true);
+            adapter.setData(articlePosition, adapter.getData().get(articlePosition));
+        }
     }
 
     @Override
     public void showCancelCollectSuccess() {
-
+        if (articlePosition < adapter.getData().size())
+        {
+            adapter.getData().get(articlePosition).setCollect(false);
+            adapter.setData(articlePosition, adapter.getData().get(articlePosition));
+        }
     }
 
     @OnClick({R.id.search_list_floating_action_btn})
@@ -226,7 +232,7 @@ public class SearchListActivity extends AbstractRootActivity<SearchListPresenter
         toolbar.setNavigationOnClickListener( v-> onBackPressedSupport());
     }
 
-    private void likeEvnet(int position)
+    private void likeEvent(int position)
     {
         if (!dataManager.getLoginStatus())
         {
