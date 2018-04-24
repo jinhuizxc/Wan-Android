@@ -466,3 +466,20 @@ public class CookiesManager implements CookieJar {
 ```
 CookiesManager.clearAllCookies();
 ```
+
+### bugly 异常上报
+```
+implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+```
+[腾讯bugly](https://bugly.qq.com/v2/workbench/apps)
+```
+private void initBugly()
+{
+    String packageName = getApplicationContext().getPackageName();
+    String processName = CommonUtils.getProcessName(android.os.Process.myPid());
+
+    CrashReport.UserStrategy strategy = new CrashReport.UserStrategy((getApplicationContext()));
+    strategy.setUploadProcess((processName == null) || processName.equals(packageName));
+    CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, false, strategy);
+}
+```

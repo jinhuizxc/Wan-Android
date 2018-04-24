@@ -11,7 +11,7 @@ import java.io.File;
  */
 
 public class Constants {
-    static final String BUGLY_ID = "a29fb52485";
+    static final String BUGLY_ID = "8943890099";
     static final String DB_NAME = "aws_wan_android.db";
 
     private static final String PATH_DATA = GeeksApp.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
