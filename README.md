@@ -434,3 +434,35 @@ topSearchTagFlow.setAdapter(new TagAdapter<TopSearchData>(topSearchDataList) {
             }
         });
 ```
+### okhttp中的cookieJar
+```
+new OkHttpClient.Builder().builder.cookieJar(new CookiesManager());
+```
+```
+public class CookiesManager implements CookieJar {
+    private static final PersistentCookieStore COOKIE_STORE = new PersistentCookieStore();
+
+    @Override
+    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+        if (cookies.size() > 0)
+        {
+            for (Cookie cookie:cookies) {
+                COOKIE_STORE.add(url, cookie);
+            }
+        }
+    }
+
+    @Override
+    public List<Cookie> loadForRequest(HttpUrl url) {
+        return COOKIE_STORE.get(url);
+    }
+
+    public static void clearAllCookies()
+    {
+        COOKIE_STORE.removeAll();
+    }
+}
+```
+```
+CookiesManager.clearAllCookies();
+```

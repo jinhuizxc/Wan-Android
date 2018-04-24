@@ -24,6 +24,7 @@ import com.hsf1002.sky.wanandroid.core.event.LoginEvent;
 import com.hsf1002.sky.wanandroid.core.event.ShowErrorView;
 import com.hsf1002.sky.wanandroid.core.event.SwitchNavigationEvent;
 import com.hsf1002.sky.wanandroid.core.event.SwitchProjectEvent;
+import com.hsf1002.sky.wanandroid.core.http.cookies.CookiesManager;
 import com.hsf1002.sky.wanandroid.presenter.mainpager.MainPagerPresenter;
 import com.hsf1002.sky.wanandroid.ui.mainpager.adapter.ArticleListAdapter;
 import com.hsf1002.sky.wanandroid.utils.CommonUtils;
@@ -185,7 +186,7 @@ public class MainPagerFragment extends AbstractRootFragment<MainPagerPresenter> 
     @Override
     public void showAutoLoginFail() {
         dataManager.setLoginStatus(false);
-        //CookiesManager
+        CookiesManager.clearAllCookies();
         RxBus.getDefault().post(new LoginEvent(false));
     }
 
