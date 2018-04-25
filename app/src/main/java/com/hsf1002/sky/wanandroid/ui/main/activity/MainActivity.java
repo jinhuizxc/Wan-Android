@@ -37,6 +37,7 @@ import com.hsf1002.sky.wanandroid.utils.CommonAlertDialog;
 import com.hsf1002.sky.wanandroid.utils.CommonUtils;
 import com.hsf1002.sky.wanandroid.utils.StartActivityUtils;
 import com.hsf1002.sky.wanandroid.utils.StatusBarUtil;
+import com.tencent.bugly.beta.Beta;
 
 import java.util.ArrayList;
 
@@ -389,6 +390,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 .setOnMenuItemClickListener( item ->
                 {
                     logout();
+                    return true;
+                });
+
+        navigationView.getMenu().findItem(R.id.nav_item_update)
+                .setOnMenuItemClickListener( item ->
+                {
+                    Beta.checkUpgrade();
                     return true;
                 });
     }

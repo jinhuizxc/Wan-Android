@@ -33,6 +33,7 @@
     <string name="about_us">About Us</string>
     <string name="auto_login_in">Auto Login</string>
     <string name="logout">Logout</string>
+    <string name="update">check update</string>
     <string name="login_tint">Please login~~</string>
     <string name="login_success">Login Success</string>
     <string name="account_password_null_tint">The user name or password cannot be empty</string>

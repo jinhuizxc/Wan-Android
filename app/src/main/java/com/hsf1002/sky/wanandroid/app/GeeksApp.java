@@ -21,6 +21,8 @@ import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import dagger.internal.Beta;
+
 /**
  * Created by hefeng on 18-4-8.
  */
@@ -95,6 +97,7 @@ public class GeeksApp extends Application {
         //CrashReport.UserStrategy strategy = new CrashReport.UserStrategy((getApplicationContext()));
         //strategy.setUploadProcess((processName == null) || processName.equals(packageName));
         //CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, false, strategy);
+        com.tencent.bugly.beta.Beta.autoCheckUpgrade = false;
         Bugly.init(getApplicationContext(), Constants.BUGLY_ID, false);
     }
 
