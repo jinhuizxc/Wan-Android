@@ -467,24 +467,6 @@ public class CookiesManager implements CookieJar {
 CookiesManager.clearAllCookies();
 ```
 
-### bugly 异常上报
-```
-implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
-```
-[腾讯bugly](https://bugly.qq.com/v2/workbench/apps)  
-`在Application的onCreate中初始化`  
-```
-private void initBugly()
-{
-    String packageName = getApplicationContext().getPackageName();
-    String processName = CommonUtils.getProcessName(android.os.Process.myPid());
-
-    CrashReport.UserStrategy strategy = new CrashReport.UserStrategy((getApplicationContext()));
-    strategy.setUploadProcess((processName == null) || processName.equals(packageName));
-    CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, false, strategy);
-}
-```
-
 ### LeakCanary检测
 ```
 debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
@@ -571,5 +553,79 @@ public List<HistoryData> loadAllHistoryData() {
     return historyDataDao.loadAll();
 }
 ...
-...
 ```
+
+### bugly 异常上报
+```
+implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+```
+[腾讯bugly](https://bugly.qq.com/v2/workbench/apps)   
+
+`在Application的onCreate中初始化`  
+
+```
+private void initBugly()
+{
+    String packageName = getApplicationContext().getPackageName();
+    String processName = CommonUtils.getProcessName(android.os.Process.myPid());    CrashReport.UserStrategy strategy = new CrashReport.UserStrategy((getApplicationContext()));
+    strategy.setUploadProcess((processName == null) || processName.equals(packageName));
+    CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, false, strategy);
+}
+```
+
+### bugly 升级应用
+```
+implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+```
+`在Application的onCreate中初始化`    
+
+```
+private void initBugly()
+{
+    //String packageName = getApplicationContext().getPackageName();
+    //String processName = CommonUtils.getProcessName(android.os.Process.myPid());
+
+    //CrashReport.UserStrategy strategy = new CrashReport.UserStrategy((getApplicationContext()));
+    //strategy.setUploadProcess((processName == null) || processName.equals(packageName));
+    //CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, false, strategy);
+    Bugly.init(getApplicationContext(), Constants.BUGLY_ID, false);
+}
+```
+
+1. 需要将CrashReport相关代码屏蔽掉
+2. 做升级包的versioncode不得低于原始包
+```
+versionCode 6
+versionName "1.3"
+```
+3. 升级包在网站[bugly后台](https://beta.bugly.qq.com/apps/8943890099/allupdate?pid=1)启动后,需杀死并重启应用才能生效
+
+4. 如果升级安装包时提示:已安装了存在签名冲突的同名数据包,则原始包需要先签名,并在此基础上做升级包(Build->Generate Singed APK,如无签名文件先创建之)  
+
+```
+signingConfigs{
+    releaseConfig{
+        keyAlias 'key0'
+        keyPassword '123456'
+        storeFile file('/home/workspace1/workplace/android/Awesome-WanAndroid/awesome/key.jks')
+        storePassword '123456'
+    }
+}
+
+buildTypes {
+    release {
+        minifyEnabled false
+        signingConfig signingConfigs.releaseConfig
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    debug {
+        signingConfig signingConfigs.releaseConfig
+    }
+```
+5. 编译错误提示:`Keystore not found for signing config`,storeFile要使用完整路径
+
+```
+storeFile file('/home/workspace1/workplace/android/Awesome-WanAndroid/awesome/key.jks')
+```
+6. 编译错误提示:`not found for signing config 'externalOverride'`,需要确保storeFile路径正确

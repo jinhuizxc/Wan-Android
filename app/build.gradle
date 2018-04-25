@@ -9,14 +9,29 @@ android {
         applicationId "com.hsf1002.sky.wanandroid"
         minSdkVersion 24
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 9
+        versionName "1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs{
+        releaseConfig{
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('/home/workspace1/workplace/android/Awesome-WanAndroid/awesome/key.jks')
+            storePassword '123456'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.releaseConfig
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            signingConfig signingConfigs.releaseConfig
         }
     }
 
@@ -87,6 +102,7 @@ dependencies {
     implementation 'me.yokeyword:fragmentation:1.1.9'
     implementation 'me.yokeyword:fragmentation-swipeback:1.1.9'
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 
     // leak canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'

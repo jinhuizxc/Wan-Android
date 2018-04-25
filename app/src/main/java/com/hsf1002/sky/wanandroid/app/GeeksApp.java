@@ -18,6 +18,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 
 /**
@@ -88,12 +89,13 @@ public class GeeksApp extends Application {
 
     private void initBugly()
     {
-        String packageName = getApplicationContext().getPackageName();
-        String processName = CommonUtils.getProcessName(android.os.Process.myPid());
+        //String packageName = getApplicationContext().getPackageName();
+        //String processName = CommonUtils.getProcessName(android.os.Process.myPid());
 
-        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy((getApplicationContext()));
-        strategy.setUploadProcess((processName == null) || processName.equals(packageName));
-        CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, false, strategy);
+        //CrashReport.UserStrategy strategy = new CrashReport.UserStrategy((getApplicationContext()));
+        //strategy.setUploadProcess((processName == null) || processName.equals(packageName));
+        //CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, false, strategy);
+        Bugly.init(getApplicationContext(), Constants.BUGLY_ID, false);
     }
 
     public static synchronized AppComponent getAppComponent()
