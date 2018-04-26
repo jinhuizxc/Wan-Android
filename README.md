@@ -629,3 +629,54 @@ buildTypes {
 storeFile file('/home/workspace1/workplace/android/Awesome-WanAndroid/awesome/key.jks')
 ```
 6. 编译错误提示:`not found for signing config 'externalOverride'`,需要确保storeFile路径正确
+
+`支持手动升级,只需两步操作`  
+
+```
+private void initBugly()
+{
+    com.tencent.bugly.beta.Beta.autoCheckUpgrade = false;
+    Bugly.init(getApplicationContext(), Constants.BUGLY_ID, false);
+}
+```
+`在比如点击按钮时检测更新`  
+
+```
+navigationView.getMenu().findItem(R.id.nav_item_update)
+        .setOnMenuItemClickListener( item ->
+        {
+            Beta.checkUpgrade();
+            return true;
+        });
+```
+
+### RxJava中用CompositeDisposable管理内存
+订阅了事件后没有及时取阅，会导致在activity或者fragment销毁后仍然占用着内存，无法释放。而disposable便是这个订阅事件，可以用来取消订阅, compositeDisposable是一个disposable的容器，可以容纳多个disposable，添加和去除的复杂度为O(1),用CompositeDisposable来管理订阅事件disposable，然后在acivity或fragment销毁的时候，调用compositeDisposable.dispose()就可以切断所有订阅事件，防止内存泄漏  
+
+```
+public class BasePresenter<T extends BaseView> implements AbstractPresenter<T> {
+
+    protected T mView;
+    private CompositeDisposable compositeDisposable;
+
+    protected void addSubscribe(Disposable disposable) {
+        if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        compositeDisposable.add(disposable);
+    }
+
+    @Override
+    public void attachView(T view) {
+        this.mView = view;
+    }
+
+    @Override
+    public void detachView() {
+        this.mView = null;
+        if (compositeDisposable != null) {
+            compositeDisposable.clear();
+        }
+    }
+}
+```
