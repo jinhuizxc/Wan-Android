@@ -1,6 +1,20 @@
 # Wan-Android
 Rxjava+RxAndroid+Retrofit+OkHttp+Gson+Glide+Dagger2+GreenDao+Lottie-android+SmartRefreshLayout
 
+* [com.airbnb.lottie](#comairbnblottie)
+* [com.scwang.smartrefresh:SmartRefreshLayout](#comscwangsmartrefreshsmartrefreshlayout)
+* [com.youth.banner:banner](#comyouthbannerbanner)
+* [com.flyco.tablayout.SlidingTabLayout](#comflycotablayoutslidingtablayout)
+* [com.just.agentweb:agentweb](#comjustagentwebagentweb)
+* [q.rorbin:VerticalTabLayout](#qrorbinverticaltablayout)
+* [com.github.CymChad:BaseRecyclerViewAdapterHelper](#comgithubcymchadbaserecyclerviewadapterhelper)
+* [com.hyman:flowlayout-lib](#comhymanflowlayout-lib)
+* [okhttp中的cookieJar](#okhttp中的cookiejar)
+* [LeakCanary检测](#leakcanary检测)
+* [GreenDao的使用](#greendao的使用)
+* [bugly 异常上报](#bugly-异常上报)
+* [bugly 升级应用](#bugly-升级应用)
+* [RxJava中用CompositeDisposable管理内存](#rxjava中用compositedisposable管理内存)
 
 ### com.airbnb.lottie
 Lottie是一个支持Android、iOS、React Native，并由 Adobe After Effects制作aep格式的动画，然后经由bodymovin插件转化渲染为json格式可被移动端本地识别解析的Airbnb开源库。实时呈现After Effects动画效果，让应用程序可以像使用静态图片一样轻松地使用动画。Lottie支持API 14及以上
@@ -599,7 +613,6 @@ versionCode 6
 versionName "1.3"
 ```
 3. 升级包在网站[bugly后台](https://beta.bugly.qq.com/apps/8943890099/allupdate?pid=1)启动后,需杀死并重启应用才能生效
-
 4. 如果升级安装包时提示:已安装了存在签名冲突的同名数据包,则原始包需要先签名,并在此基础上做升级包(Build->Generate Singed APK,如无签名文件先创建之)  
 
 ```
