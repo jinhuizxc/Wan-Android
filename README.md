@@ -1,22 +1,20 @@
-# Wan-Android
-Rxjava+RxAndroid+Retrofit+OkHttp+Gson+Glide+Dagger2+GreenDao+Lottie-android+SmartRefreshLayout
-
-* [com.airbnb.lottie](#comairbnblottie)
-* [com.scwang.smartrefresh:SmartRefreshLayout](#comscwangsmartrefreshsmartrefreshlayout)
-* [com.youth.banner:banner](#comyouthbannerbanner)
-* [com.flyco.tablayout.SlidingTabLayout](#comflycotablayoutslidingtablayout)
-* [com.just.agentweb:agentweb](#comjustagentwebagentweb)
-* [q.rorbin:VerticalTabLayout](#qrorbinverticaltablayout)
-* [com.github.CymChad:BaseRecyclerViewAdapterHelper](#comgithubcymchadbaserecyclerviewadapterhelper)
-* [com.hyman:flowlayout-lib](#comhymanflowlayout-lib)
+* [com.airbnb.lottie-跨平台动画库](#comairbnblottie-跨平台动画库)
+* [com.scwang.smartrefresh:SmartRefreshLayout-列表刷新控件](#comscwangsmartrefreshsmartrefreshlayout-列表刷新控件)
+* [com.youth.banner:banner-首页banner](#comyouthbannerbanner-首页banner)
+* [com.flyco.tablayout.SlidingTabLayout-可嵌入ViewPager的TabLayout](#comflycotablayoutslidingtablayout-可嵌入viewpager的tablayout)
+* [q.rorbin:VerticalTabLayout-垂直方向的TabLayout](#qrorbinverticaltablayout-垂直方向的tablayout)
+* [com.just.agentweb:agentweb-高度封装的WebView](#comjustagentwebagentweb-高度封装的webview)
+* [com.github.CymChad:BaseRecyclerViewAdapterHelper-通用适配器](#comgithubcymchadbaserecyclerviewadapterhelper-通用适配器)
+* [com.hyman:flowlayout-lib-流式布局标签](#comhymanflowlayout-lib-流式布局标签)
 * [okhttp中的cookieJar](#okhttp中的cookiejar)
-* [LeakCanary检测](#leakcanary检测)
-* [GreenDao的使用](#greendao的使用)
-* [bugly 异常上报](#bugly-异常上报)
-* [bugly 升级应用](#bugly-升级应用)
-* [RxJava中用CompositeDisposable管理内存](#rxjava中用compositedisposable管理内存)
+* [com.squareup.leakcanary-内存泄漏检测](#comsquareupleakcanary-内存泄漏检测)
+* [org.greenrobot.greendao-数据库GreenDao](#orggreenrobotgreendao-数据库greendao)
+* [com.tencent.bugly:crashreport_upgrade-bugly异常上报](#comtencentbuglycrashreport_upgrade-bugly异常上报)
+* [com.tencent.bugly:crashreport_upgrade-bugly应用升级](#comtencentbuglycrashreport_upgrade-bugly应用升级)
+* [CompositeDisposable-RxJava中内存管理](#compositedisposable-rxjava中内存管理)
 
-### com.airbnb.lottie
+
+### com.airbnb.lottie-跨平台动画库
 Lottie是一个支持Android、iOS、React Native，并由 Adobe After Effects制作aep格式的动画，然后经由bodymovin插件转化渲染为json格式可被移动端本地识别解析的Airbnb开源库。实时呈现After Effects动画效果，让应用程序可以像使用静态图片一样轻松地使用动画。Lottie支持API 14及以上
 ```
 implementation "com.airbnb.android:lottie:2.3.0"
@@ -46,7 +44,7 @@ if (oneAnimation != null)
 }
 ```
 
-### com.scwang.smartrefresh:SmartRefreshLayout
+### com.scwang.smartrefresh:SmartRefreshLayout-列表刷新控件
 ```
 implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
 implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
@@ -94,7 +92,7 @@ private void setRefresh()
     });
 }
 ```
-### com.youth.banner:banner
+### com.youth.banner:banner-首页banner
 ```
 implementation "com.youth.banner:banner:1.4.10"
 ```
@@ -158,7 +156,7 @@ public void onStop() {
 }
 ```
 
-### com.flyco.tablayout.SlidingTabLayout
+### com.flyco.tablayout.SlidingTabLayout-可嵌入ViewPager的TabLayout
 ```
 implementation "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
 ```
@@ -218,56 +216,7 @@ viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
 });
 slidingTabLayout.setViewPager(viewPager);
 ```
-
-### com.just.agentweb:agentweb
-```
-implementation 'com.just.agentweb:agentweb:3.1.0'
-```
-```
-<FrameLayout
-        android:id="@+id/article_detail_web_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false" />
-```
-```
-@BindView(R.id.article_detail_web_view)
-FrameLayout webview;
-
-private AgentWeb agentWeb;
-```
-```
-@Override
-protected void initEventAndData() {
-    agentWeb = AgentWeb.with(this)
-            .setAgentWebParent(webview, new LinearLayout.LayoutParams(-1, -1))
-            .useDefaultIndicator()
-            .defaultProgressBarColor()
-            .setMainFrameErrorView(R.layout.webview_error_view, -1)
-            .createAgentWeb()
-            .ready()
-            .go(link);
-}
-
-@Override
-protected void onPause() {
-    super.onPause();
-    agentWeb.getWebLifeCycle().onPause();
-}
-
-@Override
-protected void onResume() {
-    super.onResume();
-    agentWeb.getWebLifeCycle().onResume();
-}
-
-@Override
-protected void onDestroy() {
-    agentWeb.getWebLifeCycle().onDestroy();
-    super.onDestroy();
-}
-```
-### q.rorbin:VerticalTabLayout
+### q.rorbin:VerticalTabLayout-垂直方向的TabLayout
 ```
 implementation "q.rorbin:VerticalTabLayout:1.2.5"
 ```
@@ -338,7 +287,65 @@ private void selectTag(int i)
     smoothScrollToPosition(i);
 }
 ```
-### com.github.CymChad:BaseRecyclerViewAdapterHelper
+
+
+### com.just.agentweb:agentweb-高度封装的WebView
+* 支持进度条以及自定义进度条
+* 支持文件下载, 断点续传
+* 支持下载通知形式提示进度
+* 简化 Javascript 通信
+* 支持返回事件处理
+* 支持注入 Cookies
+* WebView 安全
+```
+implementation 'com.just.agentweb:agentweb:3.1.0'
+```
+```
+<FrameLayout
+        android:id="@+id/article_detail_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false" />
+```
+```
+@BindView(R.id.article_detail_web_view)
+FrameLayout webview;
+
+private AgentWeb agentWeb;
+```
+```
+@Override
+protected void initEventAndData() {
+    agentWeb = AgentWeb.with(this)
+            .setAgentWebParent(webview, new LinearLayout.LayoutParams(-1, -1))
+            .useDefaultIndicator()
+            .defaultProgressBarColor()
+            .setMainFrameErrorView(R.layout.webview_error_view, -1)
+            .createAgentWeb()
+            .ready()
+            .go(link);
+}
+
+@Override
+protected void onPause() {
+    super.onPause();
+    agentWeb.getWebLifeCycle().onPause();
+}
+
+@Override
+protected void onResume() {
+    super.onResume();
+    agentWeb.getWebLifeCycle().onResume();
+}
+
+@Override
+protected void onDestroy() {
+    agentWeb.getWebLifeCycle().onDestroy();
+    super.onDestroy();
+}
+```
+
+### com.github.CymChad:BaseRecyclerViewAdapterHelper-通用适配器
 ```
 implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
 ```
@@ -346,35 +353,35 @@ implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
 private ProjectListAdapter adapter;
 
 adapter = new ProjectListAdapter(R.layout.item_project_list, dataList);
-        adapter.setOnItemClickListener(((adapter1, view, position) ->
-        {
-            StartActivityUtils.startArticleDetailActivity(_mActivity,
-                    adapter.getData().get(position).getId(),
-                    adapter.getData().get(position).getTitle().trim(),
-                    adapter.getData().get(position).getLink().trim(),
-                    adapter.getData().get(position).isCollect(),
-                    false, true);
-        }));
-        adapter.setOnItemChildClickListener(((adapter1, view, position) ->
-        {
-            switch (view.getId())
+adapter.setOnItemClickListener(((adapter1, view, position) ->
+{
+    StartActivityUtils.startArticleDetailActivity(_mActivity,
+            adapter.getData().get(position).getId(),
+            adapter.getData().get(position).getTitle().trim(),
+            adapter.getData().get(position).getLink().trim(),
+            adapter.getData().get(position).isCollect(),
+            false, true);
+}));
+adapter.setOnItemChildClickListener(((adapter1, view, position) ->
+{
+    switch (view.getId())
+    {
+        case R.id.item_project_list_install_tv:
+            if (TextUtils.isEmpty(adapter.getData().get(position).getApkLink()))
             {
-                case R.id.item_project_list_install_tv:
-                    if (TextUtils.isEmpty(adapter.getData().get(position).getApkLink()))
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(adapter.getData().get(position).getApkLink())));
-                    }
-                    break;
-                default:
-                    break;
+                return;
             }
-        }));
+            else
+            {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(adapter.getData().get(position).getApkLink())));
+            }
+            break;
+        default:
+            break;
+    }
+}));
 
-        recyclerView.setAdapter(adapter);
+recyclerView.setAdapter(adapter);
 ```
 ```
 public class ProjectListAdapter extends BaseQuickAdapter<FeedArticleData, ProjectListViewHolder>{
@@ -408,7 +415,7 @@ public ProjectListViewHolder(View view) {
   }
 }
 ```
-### com.hyman:flowlayout-lib
+### com.hyman:flowlayout-lib-流式布局标签
 ```
 implementation "com.hyman:flowlayout-lib:1.1.2"
 ```
@@ -481,7 +488,7 @@ public class CookiesManager implements CookieJar {
 CookiesManager.clearAllCookies();
 ```
 
-### LeakCanary检测
+### com.squareup.leakcanary-内存泄漏检测
 ```
 debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
@@ -501,7 +508,7 @@ public static RefWatcher getRefWatcher(Context context)
 refWatcher = LeakCanary.install(this);
 ```
 
-### GreenDao的使用
+### org.greenrobot.greendao-数据库GreenDao
 ```
 apply plugin: 'org.greenrobot.greendao'
 ...
@@ -569,7 +576,7 @@ public List<HistoryData> loadAllHistoryData() {
 ...
 ```
 
-### bugly 异常上报
+### com.tencent.bugly:crashreport_upgrade-bugly异常上报
 ```
 implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
 ```
@@ -587,7 +594,7 @@ private void initBugly()
 }
 ```
 
-### bugly 升级应用
+### com.tencent.bugly:crashreport_upgrade-bugly应用升级
 ```
 implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 ```
@@ -663,7 +670,7 @@ navigationView.getMenu().findItem(R.id.nav_item_update)
         });
 ```
 
-### RxJava中用CompositeDisposable管理内存
+### CompositeDisposable-RxJava中内存管理
 订阅了事件后没有及时取阅，会导致在activity或者fragment销毁后仍然占用着内存，无法释放。而disposable便是这个订阅事件，可以用来取消订阅, compositeDisposable是一个disposable的容器，可以容纳多个disposable，添加和去除的复杂度为O(1),用CompositeDisposable来管理订阅事件disposable，然后在acivity或fragment销毁的时候，调用compositeDisposable.dispose()就可以切断所有订阅事件，防止内存泄漏  
 
 ```
